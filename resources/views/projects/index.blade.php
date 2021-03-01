@@ -4,7 +4,9 @@
     <div class="row">
         <div class="col-lg-12 margin-tb top">
             <div class="float-left">
-                <h2>Laravel 8 CRUD </h2>
+                <h2>
+                    <marquee behavior="" direction="right">Laravel 8 CRUD </marquee>
+                </h2>
             </div>
 
             @include('layouts.search')
@@ -18,6 +20,7 @@
             @include('layouts.table')
 
             <!-- small modal -->
+
             <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -53,11 +56,58 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content modal-danger">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="deleteBody">
+                            <div>
+                                <!-- the result to be displayed apply here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        $(document).on('click', '#smallModal', function(event) {
+        $(document).on('click', '#smallButton', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            console.log(href);
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $('#loader').show();
+                },
+                success: function(result) {
+                    $("#smallModal").modal("show");
+                    $("#smallBody").html(result).show();
+                    console.log(result);
+                },
+
+                complete: function() {
+                    $("#loader").hide();
+                },
+
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Modal" + href + "Não pode abri" + error);
+                    $("#loader").hide();
+                },
+
+                timeout: 5000
+            });
+        });
+
+        $(document).on('click', '#deleteButton', function(event) {
             event.preventDefault();
             let href = $(this).attr('data-attr');
             console.log(href);
@@ -67,8 +117,8 @@
                     $("#loader").show();
                 },
                 success: function(result) {
-                    $("#smallModal").modal("show");
-                    $("#smallBody").html(result).show();
+                    $("#deleteModal").modal("show");
+                    $("#deleteBody").html(result).show();
                 },
 
                 complete: function() {

@@ -106,9 +106,9 @@ class ProjectController extends Controller {
         ->with('sucess', 'Projeto removido!');
     }
 
-    public function delete($id)  {
-        $this->projects->find($id);
-
+    public function delete($id) {
+        $project = Project::find($id);
+        
         return view('projects.delete', compact('project'));
     }
 }

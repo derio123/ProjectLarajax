@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('projects/delete/{id}', [ProjectController::class, 'delete'])->name('excluir');
+Route::get('projects/delete/{id}', [ProjectController::class, 'delete'])->name('delete');
 
 Route::resource('projects', ProjectController::class);
