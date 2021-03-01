@@ -1,31 +1,56 @@
-@forelse ($projects as $proj)
+<table class="table table-bordered table-hover table-responsive">
     <tr>
-        <span class="alert alert-info">Não projetos</span>
+        <th>No</th>
+        <th>Name</th>
+        <th>Introduction</th>
+        <th>Location</th>
+        <th>Cost</th>
+        <th>Date Created</th>
+        <th width="280px">Action</th>
     </tr>
-@empty
-    <tr>
-        <td>{{ ++$i }}</td>
-        <td>{{ $proj->name }}</td>
-        <td>{{ $proj->introduction }}</td>
-        <td>{{ $proj->location }}</td>
-        <td>{{ $proj->cost }}</td>
-        <td>{{ date_format($proj->created_at, 'jS M Y') }}</td>
-        <td>
-            <form action="{{ route('projects.destroy', $proj->id) }}" method="POST">
-                <a href="{{ route('projects.show', $proj->id) }}" title="show">
-                    <i class="fas fa-eye text-success  fa-lg"></i>
-                </a>
+    <tbody>
+        @forelse ($projects as $proj)
+            <tr>
+                <td>{{ ++$i }}</td>
+                <td>{{ $proj->name }}</td>
+                <td>{{ $proj->introduction }}</td>
+                <td>{{ $proj->location }}</td>
+                <td>{{ $proj->cost }}</td>
+                <td>{{ date_format($proj->created_at, 'jS M Y') }}</td>
+                <td>
+                    <form action="{{ route('projects.destroy', $proj->id) }}" method="POST">
+                        {{-- href="{{ route('projects.show', $proj->id) }}" 
+                        href="{{ route('projects.edit', $proj->id) }}" --}}
+                        <a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                            data-attr="{{ route('projects.show', $proj->id) }}"
+                            style="border: none; background-color:transparent;" title="show">
+                            <i class="fas fa-eye text-success  fa-lg"></i>
+                        </a>
 
-                <a href="{{ route('projects.edit', $proj->id) }}">
-                    <i class="fas fa-edit  fa-lg"></i>
-                </a>
+                        <a class="text-secondary ml-2" data-toggle="modal" id="mediumButton" data-target="#mediumModal"
+                            data-attr="{{ route('projects.edit', $proj->id) }}"
+                            style="border: none; background-color:transparent;" title="Editar">
+                            <i class="fas fa-edit fa-lg text-gray-500"></i>
+                        </a>
 
-                @csrf
-                @method('DELETE')
-                <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                    <i class="fas fa-trash fa-lg text-danger"></i>
-                </button>
-            </form>
-        </td>
-    </tr>
-@endforelse
+                        @csrf
+                        @method('DELETE')
+                        <a class="ml-1" data-toggle="modal" id="smallButton" data-target="#smallModal"
+                            data-attr="{{ route('excluir', $proj->id) }}" title="Excluir"
+                            style="border: none; background-color:transparent;">
+                            <i class="fas fa-trash fa-lg text-danger"></i>
+                        </a>
+                    </form>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <div class="text-center">
+                    <span class="alert alert-info">Não projetos</span>
+                </div>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
+{!! $projects->links() !!}

@@ -105,4 +105,11 @@ class ProjectController extends Controller {
         return redirect()->route('projects.index')
         ->with('sucess', 'Projeto removido!');
     }
+
+    public function delete($id)  {
+        $this->projects->find($id);
+
+        return view('projects.delete', compact('project'));
+    }
 }
+

@@ -2,70 +2,117 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+        <div class="col-lg-12 margin-tb top">
+            <div class="float-left">
                 <h2>Laravel 8 CRUD </h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('projects.create') }}" title="Novo projeto"> <i
-                        class="fas fa-plus-circle"></i>
-                </a>
-            </div>
+
+            @include('layouts.search')
 
             @if ($message = Session::get('sucess'))
-                <div class="alert alert-success">
+                <div class="alert alert-success text-center" style="width:30px top:20px">
                     <p>{{ $message }}</p>
                 </div>
             @endif
 
-            <table class="table table-bordered table-responsive-lg">
-                <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Introduction</th>
-                    <th>Location</th>
-                    <th>Cost</th>
-                    <th>Date Created</th>
-                    <th width="280px">Action</th>
-                </tr>
-                <tbody>
-                    @forelse ($projects as $proj)
-                        <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $proj->name }}</td>
-                            <td>{{ $proj->introduction }}</td>
-                            <td>{{ $proj->location }}</td>
-                            <td>{{ $proj->cost }}</td>
-                            <td>{{ date_format($proj->created_at, 'jS M Y') }}</td>
-                            <td>
-                                <form action="{{ route('projects.destroy', $proj->id) }}" method="POST">
-                                    <a href="{{ route('projects.show', $proj->id) }}" title="show">
-                                        <i class="fas fa-eye text-success  fa-lg"></i>
-                                    </a>
+            @include('layouts.table')
 
-                                    <a href="{{ route('projects.edit', $proj->id) }}">
-                                        <i class="fas fa-edit  fa-lg"></i>
-                                    </a>
-
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" title="delete" style="border: none; background-color:transparent;">
-                                        <i class="fas fa-trash fa-lg text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <div class="text-center">
-                                <span class="alert alert-info">Não projetos</span>
+            <!-- small modal -->
+            <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="smallBody">
+                            <div>
+                                <!-- the result to be displayed apply here -->
                             </div>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            {!! $projects->links() !!}
+            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="mediumBody">
+                            <div>
+                                <!-- the result to be displayed apply here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        $(document).on('click', '#smallModal', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            console.log(href);
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $("#loader").show();
+                },
+                success: function(result) {
+                    $("#smallModal").modal("show");
+                    $("#smallBody").html(result).show();
+                },
+
+                complete: function() {
+                    $("#loader").hide();
+                },
+
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Modal" + href + "Não pode abri" + error);
+                    $("#loader").hide();
+                },
+
+                timeout: 5000
+            });
+        });
+
+
+        $(document).on('click', '#mediumButton', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            console.log(href);
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $('#loader').show();
+                },
+                success: function(response) {
+                    $('#mediumModal').modal("show");
+                    $('#mediumBody').html(response).show();
+                },
+
+                complete: function() {
+                    $('#loader').hide();
+                },
+
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Modal" + href + "Não pode abri" + error);
+                    $('#loader').hide();
+                },
+
+                timeout: 5000
+            });
+        });
+
+    </script>
 @endsection

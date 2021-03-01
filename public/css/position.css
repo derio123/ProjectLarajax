@@ -1,0 +1,21 @@
+.top {
+    top: 10px
+}
+
+.alert.alert-success.text-center {
+    position: relative;
+    padding: .1rem 1.rem;
+    margin-bottom: 1rem;
+    border: 0px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-radius: .25rem;
+    width: 13rem;
+    left: 20rem;
+}
