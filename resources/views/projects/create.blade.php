@@ -4,13 +4,8 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Novo produto</h2>
+                <h2>{{$titleCreate}}</h2>
             </div>
-            {{-- <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('projects.index') }}" title="Voltar"> 
-                    <i class="fas fa-backward "></i>
-                </a>
-            </div> --}}
         </div>
     </div>
 
@@ -55,6 +50,10 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="float-right">
+                    <a class="btn btn-primary" href="{{ route('projects.index') }}" title="Go back"> <i
+                            class="fas fa-backward "></i> </a>
+                </div>
             </div>
         </div>
 

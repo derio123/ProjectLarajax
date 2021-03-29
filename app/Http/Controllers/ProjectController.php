@@ -31,7 +31,8 @@ class ProjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('projects.create');
+        $titleCreate  = 'Novo produto';
+        return view('projects.create', compact('titleCreate'));
     }
 
     /**
@@ -70,7 +71,8 @@ class ProjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Project $project) {
-        return view('projects.edit', compact('project'));
+        $title = 'Edit Product';
+        return view('projects.edit', compact('project', 'title'));
     }
 
     /**

@@ -7,6 +7,7 @@
                 <h2>
                     <marquee behavior="" direction="right">Laravel 8 CRUD </marquee>
                 </h2>
+                
             </div>
 
             @include('layouts.search')
@@ -21,63 +22,16 @@
 
             <!-- small modal -->
 
-            <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="smallBody">
-                            <div>
-                                <!-- the result to be displayed apply here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('layouts.modals.smallModal')
 
-            <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="mediumBody">
-                            <div>
-                                <!-- the result to be displayed apply here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('layouts.modals.mediumModal')
 
-            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content modal-danger">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body" id="deleteBody">
-                            <div>
-                                <!-- the result to be displayed apply here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('layouts.modals.modalDelete')
         </div>
     </div>
 
     <script>
+        //$('.alert').alert()
         $(document).on('click', '#smallButton', function(event) {
             event.preventDefault();
             let href = $(this).attr('data-attr');
@@ -87,6 +41,7 @@
                 beforeSend: function() {
                     $('#loader').show();
                 },
+
                 success: function(result) {
                     $("#smallModal").modal("show");
                     $("#smallBody").html(result).show();
@@ -116,9 +71,11 @@
                 beforeSend: function() {
                     $("#loader").show();
                 },
+                
                 success: function(result) {
                     $("#deleteModal").modal("show");
                     $("#deleteBody").html(result).show();
+                    console.log(result);
                 },
 
                 complete: function() {

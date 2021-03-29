@@ -17,5 +17,11 @@
     border-left-color: transparent;
     border-radius: .25rem;
     width: 13rem;
-    left: 20rem;
+    left: 12rem;
+    top: 12px;
+    bottom: 12px;
+}
+
+.fas {
+    font-family: "Font Awesome 5 Free Solid", "Font Awesome 5 Free" !important;
 }

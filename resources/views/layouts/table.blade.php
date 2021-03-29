@@ -19,37 +19,38 @@
                 <td>{{ date_format($proj->created_at, 'jS M Y') }}</td>
                 <td>
                     {{-- <form action="{{ route('projects.destroy', $proj->id) }}" method="POST"> --}}
-                        {{-- href="{{ route('projects.show', $proj->id) }}" 
+                    {{-- href="{{ route('projects.show', $proj->id) }}" 
                         href="{{ route('projects.edit', $proj->id) }}" --}}
-                        <a data-toggle="modal" id="smallButton" data-target="#smallModal"
-                            data-attr="{{ route('projects.show', $proj->id) }}"
-                            style="border: none; background-color:transparent;" title="show">
-                            <i class="fas fa-eye text-success  fa-lg"></i>
-                        </a>
+                    <a data-toggle="modal" id="smallButton" data-target="#smallModal"
+                        data-attr="{{ route('projects.show', $proj->id) }}"
+                        style="border: none; background-color:transparent;" title="show">
+                        <i class="fas fa-eye text-success  fa-lg"></i>
+                    </a>
 
-                        <a class="text-secondary ml-2" data-toggle="modal" id="mediumButton" data-target="#mediumModal"
-                            data-attr="{{ route('projects.edit', $proj->id) }}"
-                            style="border: none; background-color:transparent;" title="Editar">
-                            <i class="fas fa-edit fa-lg text-gray-500"></i>
-                        </a>
+                    <a class="text-secondary ml-2" data-toggle="modal" id="mediumButton" data-target="#mediumModal"
+                        data-attr="{{ route('projects.edit', $proj->id) }}"
+                        style="border: none; background-color:transparent;" title="Editar">
+                        <i class="fas fa-edit fa-lg text-gray-500"></i>
+                    </a>
 
-                        
-                        <a class="ml-1" data-toggle="modal" id="deleteButton" data-target="#deleteModal"
-                            data-attr="{{ route('delete', $proj->id) }}" method="POST" title="Excluir"
-                            style="border: none; background-color:transparent;">
-                            <i class="fas fa-trash fa-lg text-danger"></i>
-                        </a>
-                    
+
+                    <a class="ml-1" data-toggle="modal" id="deleteButton" data-target="#deleteModal"
+                        data-attr="{{ route('delete', $proj->id) }}" method="POST" title="Excluir"
+                        style="border: none; background-color:transparent;">
+                        <i class="fas fa-trash fa-lg text-danger"></i>
+                    </a>
+
                 </td>
             </tr>
-        @empty
-            <tr>
-                <div class="text-center">
-                    <span class="alert alert-info">Não projetos</span>
-                </div>
-            </tr>
-        @endforelse
-    </tbody>
+        </tbody>
+    @empty
+        <tr>
+            <div class="text-center">
+                <span class="alert alert-info">Não projetos</span>
+            </div>
+        </tr>
+    @endforelse
+
 </table>
 
 {!! $projects->links() !!}
