@@ -15,6 +15,9 @@
     <link href="{{ asset('css/brands.css') }}" rel="stylesheet">
     <link href="{{ asset('css/solid.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/video.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/chatstyles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -22,6 +25,15 @@
 
     <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
     <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
+    
+    {{-- RecordRTC --}}
+    <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
+    <script src="https://www.webrtc-experiment.com/gif-recorder.js"></script>
+    <script src="https://www.webrtc-experiment.com/getScreenId.js"></script>
+    <script src="https://www.webrtc-experiment.com/DetectRTC.js"> </script>
+
+    <!-- for Edige/FF/Chrome/Opera/etc. getUserMedia support -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
     <script src="{{ asset('js/all.js') }}"></script>
     <script defer src="{{ asset('js/brands.js') }}"></script>
@@ -39,11 +51,11 @@
         </div>
     </main>
 
-    <footer class="footer">
+   {{--  <footer class="footer">
         <div class="text-center">
             <p>Teste</p>
         </div>
-    </footer>
+    </footer> --}}
 </body>
 
 </html>

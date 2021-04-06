@@ -1,0 +1,213 @@
+video {
+    height: 185px;
+    width: 370px;
+    object-fit: cover;
+    border: 2px solid #645cff;
+    position: relative;
+    box-shadow: 1px 1px 11px #9e9e9e;
+}
+
+#videoGrid.video-wrapper {
+    position: relative;
+    -webkit-transition: all 0.24s linear;
+    transition: all 0.24s linear;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    margin: 30px;
+    z-index: 1;
+}
+
+.video-container {
+    padding: 0;
+    margin: 0;
+}
+
+.user-video {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.main {
+    height: 100vh;
+    display: flex;
+}
+
+.mainLeft {
+    background: #000;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: -20px;
+}
+
+.mainVideos {
+    flex-grow: 1;
+    background-color: #222222;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.modal-video {
+    position: initial;
+    width: 87rem;
+    font-weight: 200;
+    overflow: auto;
+}
+
+.mainControls {
+    padding: 3px 5px 0px 5px;
+    display: flex;
+    background-color: #007bff;
+    color: #222;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-foo {
+    position: relative;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    padding: 0;
+    background: #222;
+}
+
+.mainControlsBlock {
+    display: flex;
+}
+
+.mainControlsButton {
+    letter-spacing: 0.3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 22px;
+    min-width: 80px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.mainControlsButton svg {
+    font-size: 19px;
+    margin-bottom: 4px;
+}
+
+.mainControlsButton:hover {
+    background-color: #2e2e2e;
+    border-radius: 5px;
+    color: #d5d5d5;
+}
+
+.mainControlsButtonEndMeeting {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 22px;
+    font-size: 12px;
+}
+
+.leaveMeeting {
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 22px;
+    background-color: #b72525;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.unmute,
+.stop {
+    color: #cc3b33;
+}
+
+.mainRight {
+    padding: 22px 18px;
+    flex: 0.2;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border-left: 1px solid #2d3d42;
+}
+
+.mainHeader {
+    text-align: center;
+}
+
+.mainHeader h6 {
+    font-weight: 700;
+    color: #4a4a4a;
+    font-size: 13px;
+}
+
+.mainChatWindow {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.messagesContainer {
+    list-style: none;
+}
+
+.message {
+    font-size: 13px;
+    display: block;
+}
+
+.messageSendingTo {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.messageSendingTo span {
+    font-size: 12px;
+    margin-left: 3px;
+    background-color: #f2f2f7;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.messageSendingTo span:hover {
+    background-color: #e7f1fd;
+    color: #2f89f2;
+}
+
+.messageSendingTo svg {
+    font-size: 10px;
+    color: #000;
+}
+
+.messageHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 11px;
+    color: #8086ac;
+}
+
+.messageReceiver {
+    color: #309af6;
+}
+
+.mainMessageContainer {
+    display: flex;
+}
+
+.mainMessageContainer input {
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    outline: 0;
+}

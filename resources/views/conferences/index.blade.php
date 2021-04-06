@@ -59,11 +59,7 @@
         </div>
 
         <div id="chat" class="tab-pane fade" role="tabpanel" aria-labelledby="chat-tab">
-            <ul class="list-group">
-                <li class="list-group-item" aria-current="true">
-                    Teste
-                </li>
-            </ul>
+            @include('conferences.chat')
         </div>
 
         @include('layouts.modals.smallModal')
@@ -72,16 +68,15 @@
 
         <div class="modal fade" id="conferenceModal" tabindex="-1" role="dialog" aria-labelledby="conferenceModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
+            <div class="modal-dialog modal-dialog modal-lg" role="document">
+                <div class="modal-content modal-content">
                     <div class="modal-header">
+                        <h3 class="modal-title">Sala{{ $item->roomId }}</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body" id="conferenceBody">
-                        @include('conferences.showConferences')
-                    </div>
+                    @include('conferences.showConferences')
                 </div>
             </div>
         </div>
@@ -92,7 +87,8 @@
 
         crud.session = {
             video: true,
-            audio: true
+            audio: true,
+            data: true
         };
 
         crud.sdpConstraints.mandatory = {
@@ -100,11 +96,67 @@
             OfferToReceiveVideo: true,
         }
 
-        var videoContainer = document.getElementById('video-container');
+        var cameraOptions = {
+            audio: true,
+            video: true
+        };
+
+        var videoContainer = document.getElementById('videoGrid');
         crud.onstream = function(event) {
             var video = event.mediaElement;
 
             videoContainer.appendChild(video);
+            console.log('funcionou');
+        }
+
+        document.getElementById('btnScreen').onclick = () => {
+            crud.getScreenConstraints(function(error, screen_constraints) {
+                if (error) {
+                    return alert(error);
+                }
+
+                if (screen_constraints.canRequestAudioTrack) {
+                    // you can capture speakers
+                    getUserMedia({
+                        audio: screen_constraints
+                    })
+                }
+
+                navigator.mediaDevices.getUserMedia({
+                    video: screen_constraints
+                }).then(function(stream) {
+                    var video = document.querySelector('video');
+                    video.src = URL.createObjectURL(stream);
+                    video.play();
+                }).catch(function(error) {
+                    alert(JSON.stringify(error, null, '\t'));
+                });
+            });
+        }
+
+        document.getElementById('stopVideo').onclick = function(event) {
+            var localStream = crud.attachStreams[0];
+            localStream.mute('video');
+
+            //localStream.unmute('video');
+            console.log('Video parado');
+        }
+
+
+        document.getElementById('unmute').onclick = function(event) {
+            var localStream = crud.attachStreams[0];
+            localStream.mute('audio');
+
+            //localStream.unmute('audio');
+            console.log('mudo!');
+        }
+
+        document.getElementById('btnOff').onclick = function(event) {
+            crud.onleave();
+            var remoteUserId = event.userid;
+            var remoteUserFullName = event.extra.fullName;
+
+            alert(remoteUserFullName + ' Saiu da chamada.');
         }
 
         $(document).on('click', '#conferenceButton', function(event) {
@@ -120,7 +172,7 @@
                 success: function(result) {
                     $("#conferenceModal").modal("show");
                     $("#conferenceBody").html(crud.openOrJoin('predefinied-roomid')).show(result);
-                    
+
                 },
 
                 complete: function() {
