@@ -108,7 +108,7 @@
             console.log('funcionou');
         };
 
-        document.getElementById('btnScreen').onclick = () => {
+        document.getElementById('btnScreen').onclick = function() {
             crud.mediaConstraints.video = true;
             crud.addStream({
                 screen: true,
