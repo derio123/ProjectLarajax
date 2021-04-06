@@ -66,21 +66,25 @@
 
         @include('layouts.modals.mediumModal')
 
-        <div class="modal fade" id="conferenceModal" tabindex="-1" role="dialog" aria-labelledby="conferenceModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog modal-lg" role="document">
-                <div class="modal-content modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">Sala{{ $item->roomId }}</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        @foreach ($conferences as $item)
+
+            <div class="modal fade" id="conferenceModal" tabindex="-1" role="dialog" aria-labelledby="conferenceModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog modal-lg" role="document">
+                    <div class="modal-content modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Sala{{ $item->roomId }}</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @include('conferences.showConferences')
                     </div>
-                    @include('conferences.showConferences')
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
+
     <script type="application/javascript">
         const crud = new RTCMultiConnection();
         crud.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
@@ -93,12 +97,7 @@
 
         crud.sdpConstraints.mandatory = {
             OfferToReceiveAudio: true,
-            OfferToReceiveVideo: true,
-        }
-
-        var cameraOptions = {
-            audio: true,
-            video: true
+            OfferToReceiveVideo: true
         };
 
         var videoContainer = document.getElementById('videoGrid');
@@ -107,30 +106,16 @@
 
             videoContainer.appendChild(video);
             console.log('funcionou');
-        }
+        };
 
         document.getElementById('btnScreen').onclick = () => {
-            crud.getScreenConstraints(function(error, screen_constraints) {
-                if (error) {
-                    return alert(error);
+            crud.mediaConstraints.video = true;
+            crud.addStream({
+                screen: true,
+                oneway: true,
+                streamCallback: function(stream) {
+                    console.log('Tela capturada com successo: ' + stream.getVideoTracks().length);
                 }
-
-                if (screen_constraints.canRequestAudioTrack) {
-                    // you can capture speakers
-                    getUserMedia({
-                        audio: screen_constraints
-                    })
-                }
-
-                navigator.mediaDevices.getUserMedia({
-                    video: screen_constraints
-                }).then(function(stream) {
-                    var video = document.querySelector('video');
-                    video.src = URL.createObjectURL(stream);
-                    video.play();
-                }).catch(function(error) {
-                    alert(JSON.stringify(error, null, '\t'));
-                });
             });
         }
 
