@@ -11,7 +11,7 @@
     </div>
 
     <div class="mainControlsBlock">
-        <div id="btnScreen" class="mainControlsButton">
+        <div id="" class="mainControlsButton">
             <i class="fas fa-desktop"></i>
             <span>Partilha Tela</span>
         </div>

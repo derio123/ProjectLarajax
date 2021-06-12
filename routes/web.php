@@ -24,3 +24,6 @@ Route::get('projects/delete/{id}', [ProjectController::class, 'delete'])->name('
 Route::resource('projects', ProjectController::class);
 
 Route::resource('conferences', ConferenceController::class);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

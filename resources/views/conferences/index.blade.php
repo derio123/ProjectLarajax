@@ -85,7 +85,7 @@
         @endforeach
     </div>
 
-    <script type="application/javascript">
+    <script>
         const crud = new RTCMultiConnection();
         crud.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
 
