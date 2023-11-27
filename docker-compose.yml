@@ -1,35 +1,36 @@
-version: "3.3"
+version: '3'
 services:
-  projectlaraajax:
-    build:
-      args:
+  app:
+    build: 
+      args: 
         user: derio
         uid: 1000
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile  
     image: laraajax-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
-    depends_on:
-      - redis
-      - queue
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
       - laravel-eti
 
   nginx:
     image: nginx:alpine
-    ports:
-      - 4501:80
+    container_name: webserver
     restart: unless-stopped
+    tty: true
+    ports:
+      - 8000:80
+      - 443:443
     volumes:
       - ./:/var/www
-      - ./docker/nginx:/etc/nginx/conf.d/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/  
     networks:
       - laravel-eti
 
-  mysql:
+  db:
     image: mysql:5.7.22
     restart: unless-stopped
     environment:
@@ -37,12 +38,13 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USERNAME: ${DB_USERNAME}
-    volumes:
-      - ./.docker/mysql/dbdata:/var/lib/mysql
     ports:
-      - 3388:3306
+      - 3309:3306
+    volumes:
+      - ./.docker/mysql/dbdata:/var/lib/mysql 
+      - ./mysql/my.cnf:/etc/mysql/my.cnf 
     networks:
-      - laravel-eti
+      - laravel-eti  
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -55,27 +57,8 @@ services:
     networks:
       - laravel-eti
 
-  queue:
-    build:
-      args:
-        user: derio
-        uid: 1000
-      context: ./
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    command: "php artisan queue:work"
-    volumes:
-      - ./:/var/www
-    depends_on:
-      - redis
-    networks:
-      - laravel-eti
-
-  redis:
-    image: redis:latest
-    networks:
-      - laravel-eti
-
+#Docker Networks
 networks:
   laravel-eti:
     driver: bridge
+    
