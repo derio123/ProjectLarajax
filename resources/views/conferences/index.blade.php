@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="row">
         <ul class="nav justify-content-center" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -67,9 +66,8 @@
         @include('layouts.modals.mediumModal')
 
         @foreach ($conferences as $item)
-
-            <div class="modal fade" id="conferenceModal" tabindex="-1" role="dialog" aria-labelledby="conferenceModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="conferenceModal" tabindex="-1" role="dialog"
+                aria-labelledby="conferenceModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog modal-lg" role="document">
                     <div class="modal-content modal-content">
                         <div class="modal-header">
@@ -84,10 +82,9 @@
             </div>
         @endforeach
     </div>
-
     <script>
         const crud = new RTCMultiConnection();
-        crud.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+        crud.socketURL = 'https://muazkhan.com:9001/';
 
         crud.session = {
             video: true,
@@ -121,10 +118,12 @@
 
         document.getElementById('stopVideo').onclick = function(event) {
             var localStream = crud.attachStreams[0];
-            localStream.mute('video');
-
-            //localStream.unmute('video');
-            console.log('Video parado');
+    
+            if (localStream.isVideo == true) {
+                localStream.mute('video')
+            }
+            localStream.unmute('video');
+            console.log('Video parado', localStream);
         }
 
 
@@ -203,7 +202,96 @@
                 timeout: 5000
             });
         });
-
     </script>
+    <script>
+        //$('.alert').alert()
+        $(document).on('click', '#smallButton', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            console.log(href);
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $('#loader').show();
+                },
 
+                success: function(result) {
+                    $("#smallModal").modal("show");
+                    $("#smallBody").html(result).show();
+                    console.log(result);
+                },
+
+                complete: function() {
+                    $("#loader").hide();
+                },
+
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Modal" + href + "Não pode abri" + error);
+                    $("#loader").hide();
+                },
+
+                timeout: 5000
+            });
+        });
+
+        $(document).on('click', '#deleteButton', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            console.log(href);
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $("#loader").show();
+                },
+
+                success: function(result) {
+                    $("#deleteModal").modal("show");
+                    $("#deleteBody").html(result).show();
+                    console.log(result);
+                },
+
+                complete: function() {
+                    $("#loader").hide();
+                },
+
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Modal" + href + "Não pode abri" + error);
+                    $("#loader").hide();
+                },
+
+                timeout: 5000
+            });
+        });
+
+
+        $(document).on('click', '#mediumButton', function(event) {
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            console.log(href);
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $('#loader').show();
+                },
+                success: function(response) {
+                    $('#mediumModal').modal("show");
+                    $('#mediumBody').html(response).show();
+                },
+
+                complete: function() {
+                    $('#loader').hide();
+                },
+
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Modal" + href + "Não pode abri" + error);
+                    $('#loader').hide();
+                },
+
+                timeout: 5000
+            });
+        });
+    </script>
 @endsection

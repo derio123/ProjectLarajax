@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
@@ -25,7 +28,7 @@
                 <strong>Nome:</strong>
                 <input type="text" name="fullname" class="form-control" placeholder="nome completo">
             </div>
-        
+
             <div class="form-group">
                 <strong>usuario:</strong>
                 <input type="text" name="username" class="form-control" placeholder="nome de usuario">
@@ -35,7 +38,7 @@
                 <strong>email:</strong>
                 <input type="text" name="email" class="form-control" placeholder="email">
             </div>
-        
+
             <div class="form-group">
                 <strong>Sala:</strong>
                 <input type="text" name="roomId" class="form-control" placeholder="Sala">
@@ -51,3 +54,4 @@
     </div>
 
 </form>
+@endsection

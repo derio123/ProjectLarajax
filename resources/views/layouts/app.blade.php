@@ -23,14 +23,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
-    <script src="https://rtcmulticonnection.herokuapp.com/socket.io/socket.io.js"></script>
-    
+    <script src="https://muazkhan.com:9001/dist/RTCMultiConnection.min.js"></script>
+    <script src="https://muazkhan.com:9001/socket.io/socket.io.js"></script>
+
     {{-- RecordRTC --}}
     <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
     <script src="https://www.webrtc-experiment.com/gif-recorder.js"></script>
     <script src="https://www.webrtc-experiment.com/getScreenId.js"></script>
-    <script src="https://www.webrtc-experiment.com/DetectRTC.js"> </script>
+    <script src="https://www.webrtc-experiment.com/DetectRTC.js"></script>
 
     <!-- for Edige/FF/Chrome/Opera/etc. getUserMedia support -->
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
@@ -51,7 +51,7 @@
         </div>
     </main>
 
-   {{--  <footer class="footer">
+    {{--  <footer class="footer">
         <div class="text-center">
             <p>Teste</p>
         </div>
