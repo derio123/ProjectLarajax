@@ -72,7 +72,7 @@
                     <div class="modal-content modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title">Sala{{ $item->roomId }}</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" id="btnOff" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -118,12 +118,17 @@
 
         document.getElementById('stopVideo').onclick = function(event) {
             var localStream = crud.attachStreams[0];
-    
+
             if (localStream.isVideo == true) {
                 localStream.mute('video')
+                console.log('video parado', localStream)
             }
-            localStream.unmute('video');
-            console.log('Video parado', localStream);
+            if (localStream.isVideo == false) {
+                localStream.unmute('video')
+                console.log('video parado', localStream)
+            }
+            //localStream.unmute('video');
+            //console.log('Video parado', localStream);
         }
 
 
@@ -133,6 +138,14 @@
 
             //localStream.unmute('audio');
             console.log('mudo!');
+        }
+
+        document.getElementById('btnOff').onclick = function(event) {
+            crud.onleave();
+            var remoteUserId = event.userid;
+            var remoteUserFullName = event.extra.fullName;
+
+            alert(remoteUserFullName + ' Saiu da chamada.');
         }
 
         document.getElementById('btnOff').onclick = function(event) {

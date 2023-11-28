@@ -5,7 +5,7 @@
     </div>
     <div id="stopVideo" class="mainControlsButton mainVideoButton">
         <i class="fas fa-video"></i>
-        <span>Parar Video</span>
+        <span>Iniciar Video</span>
     </div>
 </div>
 
